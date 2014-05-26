@@ -9,13 +9,19 @@
 
 defGen::defGen(void){}
 
-defGen::defGen(int _pocz, int _kon, int _ziarno, string _nazwa){
+defGen::defGen(int _pocz, int _kon, int _ilosc, int _ziarno, string _nazwa){
    uZakres(_pocz, _kon);
    uZiarno(_ziarno);
    uNazwaGen(_nazwa);
+   ilosc=_ilosc;
+   tab=NULL;
+   rezerwuj();
 }
 
-defGen::~defGen(void){}
+defGen::~defGen(void)
+{
+   zwolnij();
+}
 
 void defGen::uZakres(int _pocz, int _kon){
    if(_pocz >= _kon){
@@ -26,6 +32,11 @@ void defGen::uZakres(int _pocz, int _kon){
    }
 }
 
+void defGen::wypisz_nazwe()
+{
+	cout<<nazwa<<endl;
+}
+
 int defGen::pZakres(void) const{
    return koniec - poczatek + 1;
 }
@@ -33,6 +44,12 @@ int defGen::pZakres(void) const{
 void defGen::uPocz(int _pocz){
    poczatek = _pocz;
 }
+
+int defGen::pPocz()
+{
+   return poczatek;
+}
+
 
 void defGen::uKoniec(int _kon){
    koniec = _kon;
@@ -50,8 +67,50 @@ void defGen::uNazwaGen(string _nazwa){
    nazwa = _nazwa;
 }
 
-void defGen::wypisz(ostream& str) const {
-   str << this -> liczba << endl;
-   return;
+void defGen::rezerwuj()
+{
+   if(tab!=NULL)
+      throw aghException(0, "miejsce zarezerwowane", __FILE__, __LINE__);
+   else
+      tab = new int[ilosc];
+
+   for(int i=0; i<ilosc; i++)
+      tab[i] = 0;
+}
+
+void defGen::zwolnij()
+{
+   if(tab!=NULL)
+      delete[] tab;
+   tab=NULL;
+}
+
+void defGen::wpisz()
+{
+   for(int i=0; i<ilosc; i++)
+   {
+      tab[i]=generuj();
+   }
+}
+
+void defGen::wypisz(ostream& str)
+{
+   str<<nazwa<<endl;
+   for(int i=0; i<ilosc; i++)
+      str<<tab[i]<<" ";
+   str<<endl;
+}
+
+int defGen::wypisz_ilosc()
+{
+   return ilosc;
+}
+
+int defGen::wypisz_jedno(int index)
+{
+   if(index>=0 && index<ilosc)
+   return tab[index];
+   else
+      throw aghException(0, "zly index", __FILE__, __LINE__);
 }
 

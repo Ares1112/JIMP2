@@ -7,16 +7,23 @@
 
 #include "aghInclude.h"
 
-cppGen::cppGen(void) : defGen(0, 1, 0, "Generator wbudowany"){
+cppGen::cppGen(void) : defGen(0, 1, 1, 0, "Generator wbudowany"){
    srand(ziarno);
 }
 
-cppGen::cppGen(int _pocz, int _kon, int _ziarno) : defGen(_pocz, _kon, _ziarno, "Generator wbudowany"){
+cppGen::cppGen(int _pocz, int _kon, int _ilosc, int _ziarno) : defGen(_pocz, _kon, _ilosc, _ziarno, "Generator wbudowany"){
    srand(ziarno);
 }
 
-cppGen::~cppGen(void){}
+cppGen::~cppGen(void)
+{
+   zwolnij();
+}
 
-void cppGen::generuj(){
+int cppGen::generuj()
+{
    liczba = (rand() % pZakres()) + poczatek;
+   return liczba;
 }
+
+

@@ -23,6 +23,8 @@ protected:
    int liczba; ///< wygenerowana losowa liczba
    int ziarno; ///< ziarno generatora
    string nazwa; ///< nazwa generatora
+   int* tab; ///< tablica przechowujaca wylosowane liczby
+   int ilosc; ///<ilosc wylosowanych liczb
 
    /// \brief Metoda ustawiajaca poczatek zakresu
    ///
@@ -34,6 +36,14 @@ protected:
    /// \param _kon - koniec zakresu
    void uKoniec(int);
 
+   /// \brief Matoda alokujaca tablice tab
+   ///
+   /// \brief return nothing
+   void rezerwuj();
+   
+   /// \brief Metoda dealokujaca tablice tab
+   void zwolnij();
+
 public:
 
    /// \brief Konstruktor bezparametrowy
@@ -43,12 +53,15 @@ public:
    ///
    /// \param _pocz - poczatek zakresu
    /// \param _kon - koniec zakresu
+   /// \param _ilosc - ilosc liczb;
    /// \param _ziarno - ziarno generatora
    /// \param _nazwa - nazwa generatora
-   defGen(int, int, int, string);
+   defGen(int, int, int, int, string);
 
    /// \brief Destruktor
    virtual ~defGen(void);
+
+   void wypisz_nazwe();
 
    /// \brief Metoda pobierajaca zakres (dlugosc) losowania
    ///
@@ -60,6 +73,11 @@ public:
    /// \param _pocz - poczatek zakresu
    /// \param _kon - koniec zakresu
    void uZakres(int, int);
+   
+   /// \brief Metoda zwracajaca poczatek zakresu
+   ///
+   /// \brief return poczatek zakresu
+   int pPocz();
 
    /// \brief Metoda ustawiajaca ziarno generatora
    ///
@@ -72,12 +90,25 @@ public:
    void uNazwaGen(string);
 
    /// \brief Metoda generujaca liczbe pseudolosowa
-   virtual void generuj(void) = 0;
+   virtual int generuj(void) = 0;
+   
+   /// \brief Metoda wpisujaca liczbe pseudolosowa do tablicy
+   void wpisz();
+
+   /// \brief Metoda wypisujaca jedna liczbe
+   /// \param _index- miejsce w tablicy
+   /// \brief return liczbe przeudolosowa
+   int wypisz_jedno(int);
+   
+   /// \brief Metoda wypisujaca ilosc wylosowanych liczb
+   /// \brief return ilosc
+   int wypisz_ilosc();
 
    /// \brief Metoda wypisujaca wygenerowana liczbe na podany strumien
    ///
    /// \param str - strumien wyjsciowy, domyslnie cout
-   void wypisz(ostream& = cout) const;
+   void wypisz(ostream& = cout);
+   
 };
 
 #endif // DEFGEN_H

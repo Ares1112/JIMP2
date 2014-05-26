@@ -25,15 +25,15 @@ public:
    ///
    /// \param _pocz - poczatek zakresu
    /// \param _kon - koniec zakresu
+   /// \param _ilosc - ilosc liczb
    /// \param _ziarno - ziarno generatora
-   cppGen(int, int, int _ziarno = time(NULL));
+   cppGen(int, int, int, int _ziarno = time(NULL));
 
    /// \brief Destruktor
    virtual ~cppGen(void);
 
    /// \brief Metoda generujaca liczbe pseudolosowa
-   void generuj(void);
-
+   int generuj(void);
 };
 
 #endif // CPPGEN_H

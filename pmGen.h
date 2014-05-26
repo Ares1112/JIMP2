@@ -28,16 +28,19 @@ public:
    ///
    /// \param _pocz - poczatek zakresu
    /// \param _kon - koniec zakresu
+   /// \param _ilosc -ilosc liczb
    /// \param _ziarno - ziarno generatora
    /// \param _mnoz - mnoznik
    /// \param _modulo - modul
-   pmGen(int, int, int, int, int);
+   pmGen(int, int, int, int, int, int);
 
    /// \brief Destruktor
    virtual ~pmGen(void);
 
    /// \brief Metoda generujaca liczbe pseudolosowa
-   void generuj(void);
+   ///
+   /// \brief return liczba pseudolosowa
+   int generuj(void);
 
    /// \brief Metoda ustawiajaca mnoznik
    ///
